@@ -4,24 +4,36 @@
 <meta charset="utf-8">
 <title>绝区零</title>
 </head>
-<body style="margin:0;background:black;text-align:center;">
-<h1 style="color:white;">ZZZ</h1>
 
-<video width="80%" controls autoplay>
+<body style="margin:0;background:black;text-align:center;color:white;">
+
+<h1>ZZZ</h1>
+
+<video id="video"
+       width="80%"
+       autoplay
+       muted
+       playsinline
+       controls>
   <source src="9996223ec436f4c793ad8bcc57283192.mp4" type="video/mp4">
 </video>
 
 <br><br>
 
-<a href="https://zzz.mihoyo.com/cloud-feat/#/" 
+<a id="jumpBtn"
+   href="https://zzz.mihoyo.com/cloud-feat/#/"
    style="color:white;font-size:24px;">
    进入云·绝区零
 </a>
 
-  <script>
-setTimeout(function(){
-  window.location.href = "https://云绝区零官网地址";
-},10000); // 10秒后跳转
+<script>
+
+// 视频播放结束自动跳转
+var video = document.getElementById("video");
+video.onended = function () {
+    window.location.href = "https://zzz.mihoyo.com/cloud-feat/#/";
+};
+
 </script>
 
 </body>
