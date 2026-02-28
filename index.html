@@ -11,7 +11,8 @@
     <video id="video"
            width="80%"
            playsinline
-           style="cursor: pointer; display: block; margin: 0 auto;">
+           poster="cover.jpg" 
+           style="cursor: pointer; display: block; margin: 0 auto; object-fit: cover;">
       <source src="output.mp4" type="video/mp4">
     </video>
 
@@ -42,16 +43,16 @@
     <script>
     var video = document.getElementById("video");
 
-    // --- 新增逻辑：点击视频画面播放/暂停 ---
+    // --- 点击视频画面播放/暂停 ---
     video.onclick = function() {
         if (video.paused) {
-            video.play(); // 如果暂停，就播放
+            video.play(); // 如果暂停，就播放（此时封面会消失）
         } else {
             video.pause(); // 如果播放，就暂停
         }
     };
 
-    // --- 保留逻辑：视频播放结束自动跳转 ---
+    // --- 视频播放结束自动跳转 ---
     video.onended = function () {
         window.location.href = "https://zzz.mihoyo.com/cloud-feat/#/";
     };
