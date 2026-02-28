@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>绝区零 - ZZZ</title>
     <style>
-        /* 基础样式设置 */
+        /* 基础样式 */
         body {
             margin: 0;
             padding: 0;
-            background-color: #000; /* 背景纯黑 */
+            background-color: #000;
             color: white;
             font-family: "Microsoft YaHei", sans-serif;
             display: flex;
@@ -17,85 +17,110 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            letter-spacing: 4px;
+        /* SVG Logo 容器 */
+        .logo-wrapper {
+            width: 280px;
             margin-bottom: 20px;
-            text-transform: uppercase;
-            font-style: italic;
-            border-left: 8px solid #f9da4a; /* 绝区零黄 */
-            padding-left: 15px;
+            filter: drop-shadow(0 0 8px rgba(249, 218, 74, 0.6));
         }
 
-        /* 视频容器：核心逻辑在这里 */
+        /* Logo 闪烁动画 (符合绝区零电子画风) */
+        .logo-text {
+            fill: #f9da4a;
+            font-family: "Arial Black", sans-serif;
+            font-size: 50px;
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: 4px;
+            animation: glitch 4s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { opacity: 1; transform: skew(0deg); }
+            92% { opacity: 0.5; transform: skew(10deg); color: #fff; }
+            94% { opacity: 1; transform: skew(-5deg); }
+            96% { opacity: 0.8; transform: translate(2px, -2px); }
+        }
+
+        /* 视频容器 */
         #video-container {
             width: 90%;
             max-width: 960px;
             position: relative;
-            box-shadow: 0 0 30px rgba(249, 218, 74, 0.2); /* 淡淡的黄色外发光 */
+            background: #111;
             border: 2px solid #333;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            line-height: 0; /* 防止视频下方出现微小间隙 */
         }
 
         #video {
             width: 100%;
+            height: auto;
             display: block;
             cursor: pointer;
-            /* 强制 16:9 比例，你可以根据视频实际比例修改，如 4:3 */
-            aspect-ratio: 16 / 9; 
-            /* 确保视频和封面图填充方式一致，不留黑边 */
+            /* 强制 16:9 比例，确保封面图和视频完全重合 */
+            aspect-ratio: 16 / 9;
             object-fit: cover;
-            background-color: #111;
         }
 
-        /* 按钮样式 */
+        /* 按钮容器 */
         .btn-container {
             margin-top: 40px;
+            text-align: center;
         }
 
+        /* 绝区零风格黄色斜角按钮 */
         #jumpBtn {
             display: inline-block;
             color: #000;
-            background-color: #f9da4a; /* 绝区零招牌黄 */
-            font-size: 20px;
+            background-color: #f9da4a;
+            font-size: 22px;
             font-weight: bold;
             text-decoration: none;
-            padding: 15px 40px;
-            border-radius: 4px;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); /* 制作斜角效果 */
+            padding: 15px 50px;
+            /* 制作硬核斜角剪裁 */
+            clip-path: polygon(15% 0, 100% 0, 85% 100%, 0% 100%);
             transition: all 0.2s ease;
+            position: relative;
         }
 
         #jumpBtn:hover {
-            transform: scale(1.05);
+            transform: scale(1.08) skew(-2deg);
             background-color: #fff;
-            box-shadow: 0 0 20px #f9da4a;
+            box-shadow: 0 0 25px #f9da4a;
         }
 
         .hint {
-            margin-top: 10px;
-            font-size: 12px;
-            color: #666;
-            letter-spacing: 1px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #555;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <h1>ZZZ</h1>
+    <div class="logo-wrapper">
+        <svg viewBox="0 0 200 70" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 5 L180 5 L160 65 L0 65 Z" fill="#f9da4a" opacity="0.1" />
+            <text x="50%" y="50" text-anchor="middle" class="logo-text">ZZZ</text>
+            <rect x="40" y="58" width="120" height="3" fill="#f9da4a" />
+        </svg>
+    </div>
 
     <div id="video-container">
         <video id="video"
                playsinline
-               poster="cover.png">
-            <source src="output.mp4" type="video/mp4">
+               poster="cover.png"> <source src="output.mp4" type="video/mp4">
             您的浏览器不支持 HTML5 视频。
         </video>
     </div>
 
-    <p class="hint">点击画面播放视频</p>
+    <p class="hint">Click to Play / 点击播放</p>
 
     <div class="btn-container">
         <a id="jumpBtn" href="https://zzz.mihoyo.com/cloud-feat/#/">
@@ -106,18 +131,20 @@
     <script>
         var video = document.getElementById("video");
 
-        // 点击视频播放或暂停
+        // 点击画面：播放/暂停切换
         video.onclick = function() {
             if (video.paused) {
                 video.play();
+                // 播放时隐藏提示文字（可选）
+                document.querySelector('.hint').style.opacity = "0.3";
             } else {
                 video.pause();
+                document.querySelector('.hint').style.opacity = "1";
             }
         };
 
-        // 视频播放结束自动跳转
+        // 视频播放结束：自动跳转
         video.onended = function () {
-            // 延迟 0.5 秒跳转，体验更顺滑
             setTimeout(function() {
                 window.location.href = "https://zzz.mihoyo.com/cloud-feat/#/";
             }, 500);
