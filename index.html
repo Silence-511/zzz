@@ -11,7 +11,7 @@
     <video id="video"
            width="80%"
            playsinline
-           controls>
+           style="cursor: pointer; display: block; margin: 0 auto;">
       <source src="output.mp4" type="video/mp4">
     </video>
 
@@ -19,13 +19,39 @@
 
     <a id="jumpBtn"
        href="https://zzz.mihoyo.com/cloud-feat/#/"
-       style="color:white;font-size:24px;text-decoration:none;border:1px solid white;padding:10px;">
+       style="display: inline-block;
+              color: white;
+              font-size: 24px;
+              text-decoration: none;
+              border: 2px solid white;
+              padding: 12px 30px;
+              border-radius: 30px;
+              transition: all 0.3s ease;
+              background: transparent;">
        直接进入云·绝区零
     </a>
 
+    <style>
+        #jumpBtn:hover {
+            background: white;
+            color: black;
+            box-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+    </style>
+
     <script>
     var video = document.getElementById("video");
-    // 只有当用户手动点击并播放完视频后，才会执行跳转
+
+    // --- 新增逻辑：点击视频画面播放/暂停 ---
+    video.onclick = function() {
+        if (video.paused) {
+            video.play(); // 如果暂停，就播放
+        } else {
+            video.pause(); // 如果播放，就暂停
+        }
+    };
+
+    // --- 保留逻辑：视频播放结束自动跳转 ---
     video.onended = function () {
         window.location.href = "https://zzz.mihoyo.com/cloud-feat/#/";
     };
