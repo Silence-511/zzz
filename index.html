@@ -1,61 +1,127 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>绝区零</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绝区零 - ZZZ1</title>
+    <style>
+        /* 基础样式设置 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* 背景纯黑 */
+            color: white;
+            font-family: "Microsoft YaHei", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-style: italic;
+            border-left: 8px solid #f9da4a; /* 绝区零黄 */
+            padding-left: 15px;
+        }
+
+        /* 视频容器：核心逻辑在这里 */
+        #video-container {
+            width: 90%;
+            max-width: 960px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(249, 218, 74, 0.2); /* 淡淡的黄色外发光 */
+            border: 2px solid #333;
+        }
+
+        #video {
+            width: 100%;
+            display: block;
+            cursor: pointer;
+            /* 强制 16:9 比例，你可以根据视频实际比例修改，如 4:3 */
+            aspect-ratio: 16 / 9; 
+            /* 确保视频和封面图填充方式一致，不留黑边 */
+            object-fit: cover;
+            background-color: #111;
+        }
+
+        /* 按钮样式 */
+        .btn-container {
+            margin-top: 40px;
+        }
+
+        #jumpBtn {
+            display: inline-block;
+            color: #000;
+            background-color: #f9da4a; /* 绝区零招牌黄 */
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 4px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); /* 制作斜角效果 */
+            transition: all 0.2s ease;
+        }
+
+        #jumpBtn:hover {
+            transform: scale(1.05);
+            background-color: #fff;
+            box-shadow: 0 0 20px #f9da4a;
+        }
+
+        .hint {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+    </style>
 </head>
-<body style="margin:0;background:black;text-align:center;color:white;">
+<body>
 
     <h1>ZZZ1</h1>
 
-    <video id="video"
-           width="80%"
-           playsinline
-           poster="cover.png" 
-           style="cursor: pointer; display: block; margin: 0 auto; object-fit: cover;">
-      <source src="output.mp4" type="video/mp4">
-    </video>
+    <div id="video-container">
+        <video id="video"
+               playsinline
+               poster="cover.jpg">
+            <source src="output.mp4" type="video/mp4">
+            您的浏览器不支持 HTML5 视频。
+        </video>
+    </div>
 
-    <br><br>
+    <p class="hint">点击画面播放视频</p>
 
-    <a id="jumpBtn"
-       href="https://zzz.mihoyo.com/cloud-feat/#/"
-       style="display: inline-block;
-              color: white;
-              font-size: 24px;
-              text-decoration: none;
-              border: 2px solid white;
-              padding: 12px 30px;
-              border-radius: 30px;
-              transition: all 0.3s ease;
-              background: transparent;">
-       直接进入云·绝区零
-    </a>
-
-    <style>
-        #jumpBtn:hover {
-            background: white;
-            color: black;
-            box-shadow: 0 0 15px rgba(255,255,255,0.5);
-        }
-    </style>
+    <div class="btn-container">
+        <a id="jumpBtn" href="https://zzz.mihoyo.com/cloud-feat/#/">
+            进入云·绝区零
+        </a>
+    </div>
 
     <script>
-    var video = document.getElementById("video");
+        var video = document.getElementById("video");
 
-    // --- 点击视频画面播放/暂停 ---
-    video.onclick = function() {
-        if (video.paused) {
-            video.play(); // 如果暂停，就播放（此时封面会消失）
-        } else {
-            video.pause(); // 如果播放，就暂停
-        }
-    };
+        // 点击视频播放或暂停
+        video.onclick = function() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        };
 
-    // --- 视频播放结束自动跳转 ---
-    video.onended = function () {
-        window.location.href = "https://zzz.mihoyo.com/cloud-feat/#/";
-    };
+        // 视频播放结束自动跳转
+        video.onended = function () {
+            // 延迟 0.5 秒跳转，体验更顺滑
+            setTimeout(function() {
+                window.location.href = "https://zzz.mihoyo.com/cloud-feat/#/";
+            }, 500);
+        };
     </script>
 
 </body>
