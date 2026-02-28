@@ -13,27 +13,25 @@
        width="80%"
        autoplay
        muted
-       playsinline
-       controls>
+       playsinline>
   <source src="output.mp4" type="video/mp4">
 </video>
 
-<br><br>
-
-<a id="jumpBtn"
-   href="https://zzz.mihoyo.com/cloud-feat/#/"
-   style="color:white;font-size:24px;">
-   进入云·绝区零
-</a>
+<p id="unmuteHint" style="font-size:14px; color:gray;">点击页面任意位置开启声音</p>
 
 <script>
+var video = document.getElementById("video");
+
+// 逻辑：用户只要点击页面任何地方，就尝试开启声音
+document.body.onclick = function() {
+    video.muted = false; 
+    document.getElementById("unmuteHint").innerText = "音频已开启";
+};
 
 // 视频播放结束自动跳转
-var video = document.getElementById("video");
 video.onended = function () {
     window.location.href = "https://zzz.mihoyo.com/cloud-feat/#/";
 };
-
 </script>
 
 </body>
